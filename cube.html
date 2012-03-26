@@ -1,0 +1,146 @@
+<!DOCTYPE html><html>
+    <head>
+        <title>Sandbox &#8212; The Cube</title>
+        <style type="text/css">
+            html {
+                background-color: #eee;
+                font-family: "Lucida Grande", Arial, Sans-Serif;
+                font-size: 100%;
+                -webkit-perspective: 2000;
+                -webkit-perspective-origin: center center;
+            }
+            body {
+                font-size: 1em;
+            }
+            
+            body, 
+            .cube,
+            .cube > section {
+                width: 200px;
+                height: 200px;
+                position: absolute;
+            }
+            
+            .cube {
+                top: 200px;
+                left: 200px;
+                -webkit-transform-style: preserve-3d;  
+                -webkit-animation: spin 4s infinite linear;
+            }
+            
+             @-webkit-keyframes spin {
+                from { -webkit-transform: rotateY(0deg) rotateZ(0deg); }
+                to { -webkit-transform: rotateY(-360deg) rotateZ(-360deg); }
+            }
+            
+            .cube,
+            .cube > section {               
+                -webkit-transition: all 1s ease-in-out;            
+            }
+            
+            .cube > section {
+                cursor: pointer;
+                line-height: 200px;
+                text-align: center;
+                border: 1px solid #ccc;
+                opacity: 0.8;
+                font-size: 4em;
+                border: 1px solid #000;
+                -webkit-backface-visibility: visible;
+                background-color: #fff;
+                opacity: 0.5;
+            }
+            
+            section.left {
+                -webkit-transform: rotateY(-90deg) translateZ(100px);
+            }
+            
+            section.top {
+                -webkit-transform: rotateX(-90deg) translateZ(100px);
+            }
+            
+            section.bottom {
+                -webkit-transform: rotateX(90deg) translateZ(100px);
+            }
+            
+            section.front {
+                -webkit-transform: rotateY(0) translateZ(100px);
+            }
+            
+            section.back {
+                -webkit-transform: rotateY(180deg) translateZ(100px);
+            }
+            
+            section.right {
+                -webkit-transform: rotateY(90deg) translateZ(100px);
+            }           
+        </style>
+    </head>
+    <body>
+        <section class="cube">
+            <section class="left">1</section>
+            <section class="top">2</section>
+            <section class="front">3</section>
+            <section class="right">4</section>
+            <section class="back">5</section>                
+            <section class="bottom">6</section>
+        </section>
+        <script>
+            var SIDES = {
+                LEFT : {
+                    className : 'left',
+                    text      : '1'
+                },
+                TOP : {
+                    className : 'top',
+                    text      : '2'
+                },
+                FRONT : {
+                    className : 'front',
+                    text      : '3'
+                },                
+                RIGHT : {
+                    className : 'right',
+                    text      : '4'
+                },
+                BACK : {
+                    className : 'back',
+                    text      : '5'
+                },                
+                BOTTOM : {
+                    className : 'bottom',
+                    text      : '6'
+                },                
+            }
+        
+            function getCubeElement() {
+                var cube = document.createElement('section');
+                cube.classList.add('cube');
+                for(var side in SIDES) {
+                    if(SIDES.hasOwnProperty(side)) {
+                        cube.appendChild(getSectionElement(SIDES[side].className, SIDES[side].text));
+                    }
+                }
+                return cube;
+            }
+            
+            function getSectionElement(className, text) {
+                var section = document.createElement('section');
+                section.classList.add(className);
+                section.textContent = text;
+                return section;
+            }
+        
+            document.addEventListener(
+                'click', 
+                function(e) { 
+                    var cube = getCubeElement();
+                    cube.style.top = e.clientY + 'px';
+                    cube.style.left = e.clientX + 'px';                    
+                    document.body.appendChild(cube);
+                }, 
+                false
+            );
+        </script>
+    </body>
+</html>
