@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { AddTodoAction, addTodo } from './TodoActions';
+import { TodoAction, addTodo } from './TodoActions';
 
 interface State {
   curText?: string
 }
 
 interface Props {
-  addTodo: (text: string) => AddTodoAction
+  addTodo: (text: string) => TodoAction
 }
 
 class AddQuestionForm extends React.PureComponent<Props, State> {

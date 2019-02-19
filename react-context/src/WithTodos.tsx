@@ -14,7 +14,7 @@ interface Props {
 export const TodoContext = React.createContext<State>({
   todos: [],
   addTodo: (text: string) => {},
-  removeTodo: () => {}
+  removeTodo: (index: number) => {}
 });
 
 export class WithTodos extends React.PureComponent<Props, State> {

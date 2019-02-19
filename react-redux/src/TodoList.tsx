@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { RemoveTodoAction, removeTodo } from './TodoActions';
+import { TodoAction, removeTodo } from './TodoActions';
 import { TodoState } from './TodoStore';
 
 interface Props {
-  removeTodo: (index: number) => RemoveTodoAction;
+  removeTodo: (index: number) => TodoAction;
   todos: string[];
 }
 

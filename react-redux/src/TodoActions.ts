@@ -2,30 +2,30 @@ export enum TodoActionType {
   Add, Remove
 }
 
+export interface TodoActionPayload {
+  todoText?: string;
+  removeIndex?: number
+}
+
 export interface TodoAction {
-  type: TodoActionType
+  type: TodoActionType;
+  payload: TodoActionPayload;
 }
 
-export interface AddTodoAction {
-  type: TodoActionType.Add;
-  text: string;
-}
-
-export interface RemoveTodoAction {
-  type: TodoActionType.Remove;
-  index: number;
-}
-
-export function addTodo(text: string): AddTodoAction {
+export function addTodo(text: string): TodoAction {
   return {
     type: TodoActionType.Add,
-    text
+    payload: {
+      todoText: text
+    }
   }
 }
 
-export function removeTodo(index: number): RemoveTodoAction {
+export function removeTodo(index: number): TodoAction {
   return {
     type: TodoActionType.Remove,
-    index
+    payload: {
+      removeIndex: index
+    }
   }
 }

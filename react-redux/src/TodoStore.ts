@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-import { AddTodoAction, RemoveTodoAction, TodoActionType, TodoAction } from './TodoActions';
+import { TodoActionType, TodoAction } from './TodoActions';
 
 export interface TodoState {
   todos: string[];
@@ -9,17 +9,22 @@ export interface TodoState {
 function handleAction(state: TodoState = { todos: [] }, action: TodoAction): TodoState {
   switch (action.type) {
     case TodoActionType.Add:
-      return {
-        ...state,
-        todos: state.todos.concat([ (action as AddTodoAction).text ])
-      };
+      if (action.payload.todoText) {
+        return {
+          ...state,
+          todos: state.todos.concat([ action.payload.todoText ])
+        };
+      } else {
+        return state;
+      }
     case TodoActionType.Remove:
-      const removeAction = (action as RemoveTodoAction);
-      return {
-        ...state,
-        todos: state.todos.slice(0, removeAction.index).concat(
-          state.todos.slice(removeAction.index + 1)
-        )
+      if (action.payload.removeIndex !== undefined) {
+        return {
+          ...state,
+          todos: state.todos.slice(0, action.payload.removeIndex).concat(
+            state.todos.slice(action.payload.removeIndex + 1)
+          )
+        }
       }
     default:
       return state;
