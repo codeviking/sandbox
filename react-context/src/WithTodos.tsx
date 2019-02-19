@@ -28,7 +28,7 @@ export class WithTodos extends React.PureComponent<Props, State> {
       removeTodo: (index) => (
         this.setState({
           todos: this.state.todos.slice(0, index).concat(
-            this.state.todos.slice(index + 1, this.state.todos.length)
+            this.state.todos.slice(index + 1)
           )
         })
       )
